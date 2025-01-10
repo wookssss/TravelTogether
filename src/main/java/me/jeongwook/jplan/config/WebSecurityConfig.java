@@ -1,7 +1,7 @@
 package me.jeongwook.jplan.config;
 
 import lombok.RequiredArgsConstructor;
-import me.jeongwook.jplan.service.UserDetailService;
+import me.jeongwook.jplan.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,13 +19,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final UserDetailService userDetailService;
-
     @Bean
     public WebSecurityCustomizer configure(){
         return (web -> web.ignoring()
-                .requestMatchers("/h2-consol/**")
-                .requestMatchers(new AntPathRequestMatcher("/static/**"))
+                .requestMatchers("/h2-console/**")
+                .requestMatchers(new AntPathRequestMatcher("/css/**"))
+                .requestMatchers(new AntPathRequestMatcher("/img/**"))
+                .requestMatchers(new AntPathRequestMatcher("/js/**"))
         );
     }
 
@@ -36,7 +36,9 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 new AntPathRequestMatcher("/login"),
                                 new AntPathRequestMatcher("/signup"),
-                                new AntPathRequestMatcher("/user")
+                                new AntPathRequestMatcher("/user"),
+                                new AntPathRequestMatcher("/api/user/check-email"),
+                                new AntPathRequestMatcher("/api/user/check-contact-number")
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
@@ -55,10 +57,10 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http,
                                                        BCryptPasswordEncoder bCryptPasswordEncoder,
-                                                       UserDetailService userDetailService)
+                                                       UserService userService)
         throws Exception{
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailService); // 사용자 정보 서비스 설정
+        authProvider.setUserDetailsService(userService); // 사용자 정보 서비스 설정
         authProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return new ProviderManager(authProvider);
     }

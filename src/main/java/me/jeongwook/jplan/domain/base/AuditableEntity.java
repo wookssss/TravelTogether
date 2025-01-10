@@ -1,4 +1,4 @@
-package me.jeongwook.jplan.entity.base;
+package me.jeongwook.jplan.domain.base;
 
 import jakarta.persistence.*;
 import lombok.Getter;

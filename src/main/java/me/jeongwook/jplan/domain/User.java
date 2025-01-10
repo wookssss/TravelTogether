@@ -1,8 +1,9 @@
-package me.jeongwook.jplan.entity;
+package me.jeongwook.jplan.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.jeongwook.jplan.entity.base.AuditableEntity;
+import me.jeongwook.jplan.domain.base.AuditableEntity;
+import me.jeongwook.jplan.enumclass.SignupType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "users")
 public class User extends AuditableEntity implements UserDetails {
     @Id
@@ -35,7 +37,7 @@ public class User extends AuditableEntity implements UserDetails {
     private String nickname;
 
     @Column(nullable = false)
-    private String signupType;
+    private SignupType signupType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

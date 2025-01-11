@@ -4,7 +4,7 @@ spring:
       on-profile: dev  # dev 프로파일에서만 적용
 
   datasource:
-    url: jdbc:postgresql://localhost/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: 1234
   jpa:

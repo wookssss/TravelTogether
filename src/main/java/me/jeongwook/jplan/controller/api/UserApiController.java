@@ -1,7 +1,7 @@
 package me.jeongwook.jplan.controller.api;
 
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.jeongwook.jplan.domain.User;
 import me.jeongwook.jplan.dto.Header;
 import me.jeongwook.jplan.dto.request.SignupRequest;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -31,19 +32,19 @@ public class UserApiController {
             }
     }
     @PostMapping("/check-contact-number")
-    public Header<Boolean> checkContactNumber(@RequestBody SignupRequest request){
+    public Header<Boolean> checkContactNumber(@RequestBody Header<SignupRequest> request){
+        User user = request.getData().toEntity();
         try{
-            if(request.getContactNumber() != null)
-                return Header.OK(userService.checkContactNumber(request.getContactNumber()));
+            if(user.getContactNumber() != null)
+                return Header.OK(userService.checkContactNumber(user.getContactNumber()));
             throw new RuntimeException("Contact Number Data is NULL");
         } catch (Exception e){
             return Header.ERROR(e.getClass().getSimpleName()+e.getMessage());
         }
     }
-
     @PostMapping("/signup")
-    public SignupResponse signup(SignupRequest request){
-        return userService.signup(request);
+    public Header<SignupResponse> signup(@RequestBody Header<SignupRequest> request){
+        return Header.OK(userService.signupUser(request.getData()));
     }
 }
 

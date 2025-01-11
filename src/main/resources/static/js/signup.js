@@ -170,7 +170,7 @@ function requestUserCreateApi() {
 
     // AJAX로 사용자 생성 API 호출
     $.ajax({
-        url: '/api/user',  // 사용자 생성 API URL
+        url: '/api/user/signup',  // 사용자 생성 API URL
         type: 'POST',      // POST 요청
         contentType: 'application/json',  // JSON 형식으로 요청
         data: JSON.stringify(createUser),  // 사용자 데이터 JSON으로 변환하여 전송

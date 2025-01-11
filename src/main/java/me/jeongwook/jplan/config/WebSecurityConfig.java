@@ -1,6 +1,7 @@
 package me.jeongwook.jplan.config;
 
 import lombok.RequiredArgsConstructor;
+import me.jeongwook.jplan.service.UserDetailService;
 import me.jeongwook.jplan.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final UserDetailService userDetailService;
+
     @Bean
     public WebSecurityCustomizer configure(){
         return (web -> web.ignoring()
@@ -37,6 +41,7 @@ public class WebSecurityConfig {
                                 new AntPathRequestMatcher("/login"),
                                 new AntPathRequestMatcher("/signup"),
                                 new AntPathRequestMatcher("/user"),
+                                new AntPathRequestMatcher("/api/user/signup"),
                                 new AntPathRequestMatcher("/api/user/check-email"),
                                 new AntPathRequestMatcher("/api/user/check-contact-number")
                         ).permitAll()
@@ -60,7 +65,7 @@ public class WebSecurityConfig {
                                                        UserService userService)
         throws Exception{
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService); // 사용자 정보 서비스 설정
+        authProvider.setUserDetailsService(this.userDetailService); // 사용자 정보 서비스 설정
         authProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return new ProviderManager(authProvider);
     }

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SignupType {
-    JPALN("JPLAN", "이메일 회원가입"),
+    JPLAN("JPLAN", "이메일 회원가입"),
     KAKAO("KAKAO", "카카오 회원가입");
 
     private String type;

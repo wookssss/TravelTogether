@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FFF;
+    background-color: #fff;
     color: #333;
 }
 
@@ -64,23 +64,42 @@ div {
 
 #menu {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: #ffbdbd;
-    padding: 0;
-    flex-wrap: wrap;
+    justify-content: flex-start; /* 메뉴 항목은 왼쪽 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    background-color: #f55b5b; /* 메뉴 배경색 */
+    padding: 10px 20px; /* 상하좌우 여백 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 살짝 드롭 섀도우 */
 }
-
 #menu a {
-    color: white;
+    color: #fff; /* 텍스트 색상 */
     text-decoration: none;
     padding: 10px 15px;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px; /* 부드러운 모서리 */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: 10px; /* 메뉴 간 간격 */
+}
+#menu a:hover {
+    background-color: #ff8b8b; /* 배경색 변경 */
+    color: #fff; /* 텍스트 색상 유지 */
+}
+#login-btn {
+    margin-left: auto; /* 메뉴의 오른쪽 끝으로 이동 */
+    padding: 8px 15px; /* 버튼 패딩 */
+    background-color: #ff8b8b; /* 버튼 배경색 */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 버튼 드롭 섀도우 */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#menu a:hover {
-    color: yellow;
+/* 로그인 버튼 호버 효과 */
+#login-btn:hover {
+    background-color: #ff6f6f; /* 배경색 변경 */
+    transform: scale(1.05); /* 살짝 확대 효과 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 호버 시 섀도우 강화 */
 }
 
 #section {
@@ -151,7 +170,7 @@ div {
 }
 
 #trend ._2nd {
-    background: center no-repeat url("/img/fukuoka.jpg");
+    background: center no-repeat url("/img/hukuoka.jpg");
     background-size: cover;
 }
 
@@ -201,7 +220,7 @@ div {
     }
 
     #menu a {
-        font-size: 1.0rem;
+        font-size: 1rem;
     }
 }
 
